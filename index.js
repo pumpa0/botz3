@@ -76,8 +76,8 @@ async function starthanbotz() {
     hanbotz.ws.on('CB:call', async (json) => {
     const callerId = json.content[0].attrs['call-creator']
     if (json.content[0].tag == 'offer') {
-//    let pa7rick = await hanbotz.sendContact(callerId, global.owner) //
-    hanbotz.sendMessage(callerId, { text: `Jangan menelpon bot! Maaf kamu akan di block.\nlink.hanbotz.xyz/grup`})
+    let pa7rick = await hanbotz.sendContact(callerId, global.owner)
+    hanbotz.sendMessage(callerId, { text: `Jangan menelpon bot! Maaf kamu akan di block.`})
     await sleep(8000)
     await hanbotz.updateBlockStatus(callerId, "block")
     }
@@ -196,7 +196,7 @@ try {
 	for (let i of kon) {
 	    list.push({
 	    	displayName: await hanbotz.getName(i + '@s.whatsapp.net'),
-	    	vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await hanbotz.getName(i + '@s.whatsapp.net')}\nFN:${await hanbotz.getName(i + '@s.whatsapp.net')}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Telepon\nitem2.URL:https://hanbotz.xyz\nitem3.X-ABLabel:Website\nEND:VCARD`
+	    	vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await hanbotz.getName(i + '@s.whatsapp.net')}\nFN:${await hanbotz.getName(i + '@s.whatsapp.net')}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Owner HanBotz\nitem2.URL:https://hanbotz.xyz\nEND:VCARD`
 	    })
 	}
 	hanbotz.sendMessage(jid, { contacts: { displayName: `${list.length} Kontak`, contacts: list }, ...opts }, { quoted })
