@@ -2000,14 +2000,14 @@ case 'tiktoknowm': {
                 if (!text) throw 'Masukkan Query Link!'
                 m.reply(mess.wait)
                 let anu = await fetchJson(`https://api.akuari.my.id/downloader/tiktok?link=${text}`)
-                hanbotz.sendMessage(m.chat, { video: { url: anu, caption: `${text}` } }, { quoted: m })
+                hanbotz.sendMessage(m.chat, { video: { url: anu}, caption: `${text}`}, { quoted: m })
             }
             break
             case 'tiktokwm': case 'tiktokwatermark': {
                 if (!text) throw 'Masukkan Query Link!'
                 m.reply(mess.wait)
                 let anu = await fetchJson(`https://api.akuari.my.id/downloader/tiktok?link=${text}`)
-                hanbotz.sendMessage(m.chat, { video: { url: anu, caption: `${text}` } }, { quoted: m })
+                hanbotz.sendMessage(m.chat, { video: { url: anu}, caption: `${text}`}, { quoted: m })
             }
             break
             case 'tiktokmp3': case 'tiktokaudio': {
