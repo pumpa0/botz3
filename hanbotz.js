@@ -51,7 +51,7 @@ module.exports = hanbotz = async (hanbotz, m, chatUpdate, store) => {
         const from = m.chat
         const quoted = m.quoted ? m.quoted : m
         const mime = (quoted.msg || quoted).mimetype || ''
-        const isMedia = /image|video|sticker|audio|gif/.test(mime)
+        const isMedia = /image|video|sticker|audio/.test(mime)
 	
         // Group __________
         const groupMetadata = m.isGroup ? await hanbotz.groupMetadata(m.chat).catch(e => {}) : ''
@@ -112,7 +112,7 @@ module.exports = hanbotz = async (hanbotz, m, chatUpdate, store) => {
 
         // Push Message To Console && Auto Read
         if (m.message) {
-            hanbotz.sendReadReceipt(m.chat, m.sender, [m.key.id])
+            hanbotz.sendReadReceipt([m.key.id])
             console.log(chalk.black(chalk.bgWhite('[ PESAN ]')), chalk.black(chalk.bgGreen(new Date)), chalk.black(chalk.bgBlue(budy || m.mtype)) + '\n' + chalk.magenta('=> Dari'), chalk.green(pushname), chalk.yellow(m.sender) + '\n' + chalk.blueBright('=> Di'), chalk.green(m.isGroup ? pushname : 'Private Chat', m.chat))
         }
        
