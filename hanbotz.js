@@ -318,8 +318,7 @@ ${Array.from(room.jawaban, (jawaban, index) => {
                 delete siapakahaku[m.sender.split('@')[0]]
             } else m.reply('*Jawaban Salah!*')
         }
-	    
-	
+	   
         
         
         // __________ TicTacToe __________
