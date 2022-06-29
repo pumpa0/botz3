@@ -813,36 +813,7 @@ Silahkan @${m.mentionedJid[0].split`@`[0]} untuk ketik terima/tolak`
                 }
             }
             break
-            case 'jodohkujowkssoks': {
-            if (!m.isGroup) throw mess.group
-            let member = participants.map(u => u.id)
-            let me = m.sender
-            let jodoh = member[Math.floor(Math.random() * member.length)]
-            let jawab = `👫Jodoh mu adalah
-
-@${me.split('@')[0]} ❤️ @${jodoh.split('@')[0]}`
-            let ments = [me, jodoh]
-            let buttons = [
-                        { buttonId: '.', buttonText: { displayText: 'Semoga Cepat Punya Anak' }, type: 1 }
-                    ]
-                    await hanbotz.sendButtonText(m.chat, buttons, jawab, hanbotz.user.name, m, {mentions: ments})
-            }
-            break
-            case 'jadianahaijskdk': {
-            if (!m.isGroup) throw mess.group
-            let member = participants.map(u => u.id)
-            let orang = member[Math.floor(Math.random() * member.length)]
-            let jodoh = member[Math.floor(Math.random() * member.length)]
-            let jawab = `Ciee yang Jadian💖 Jangan lupa pajak jadiannya🐤
-
-@${orang.split('@')[0]} ❤️ @${jodoh.split('@')[0]}`
-            let menst = [orang, jodoh]
-            let buttons = [
-                        { buttonId: '.', buttonText: { displayText: 'Semoga Cepat Punya Anak' }, type: 1 }
-                    ]
-                    await hanbotz.sendButtonText(m.chat, buttons, jawab, hanbotz.user.name, m, {mentions: menst})
-            }
-            break
+            
             case '/join': {
                 if (!isCreator) throw mess.owner
                 if (!text) throw 'Masukkan Link Group!'
@@ -979,172 +950,8 @@ let teks = `══✪〘 *Tag All* 〙✪══
                 m.reply(teks)
 	    }
 	    break
-               case 'vote': {
-            if (!m.isGroup) throw mess.group
-            if (!isAdmins && !isCreator) throw mess.admin
-            if (m.chat in vote) throw `_Masih ada vote di grup ini!_\n\n*${prefix}hapusvote* - untuk menghapus vote`
-            if (!text) throw `Masukkan Alasan Melakukan Vote, Example: *${prefix + command} Apakah Owner Ganteng*`
-            m.reply(`Vote dimulai!\n\n*${prefix}upvote* - untuk ya\n*${prefix}devote* - untuk tidak\n*${prefix}cekvote* - untuk mengecek vote\n*${prefix}hapusvote* - untuk menghapus vote`)
-            vote[m.chat] = [q, [], []]
-            await sleep(1000)
-            upvote = vote[m.chat][1]
-            devote = vote[m.chat][2]
-            teks_vote = `*「 VOTE 」*
-
-*Alasan:* ${vote[m.chat][0]}
-
-┌〔 UPVOTE 〕
-│ 
-├ Total: ${vote[m.chat][1].length}
-│
-│ 
-└────
-
-┌〔 DEVOTE 〕
-│ 
-├ Total: ${vote[m.chat][2].length}
-│
-│ 
-└────
-
-*${prefix}hapusvote* - untuk menghapus vote`
-let buttonsVote = [
-  {buttonId: `${prefix}upvote`, buttonText: {displayText: '𝚄𝙿𝚅𝙾𝚃𝙴'}, type: 1},
-  {buttonId: `${prefix}devote`, buttonText: {displayText: '𝙳𝙴𝚅𝙾𝚃𝙴'}, type: 1}
-]
-
-            let buttonMessageVote = {
-                text: teks_vote,
-                footer: hanbotz.user.name,
-                buttons: buttonsVote,
-                headerType: 1
-            }
-            hanbotz.sendMessage(m.chat, buttonMessageVote)
-	    }
-            break
-               case 'upvote': {
-            if (!m.isGroup) throw mess.group
-            if (!(m.chat in vote)) throw `_*tidak ada voting digrup ini!*_\n\n*${prefix}vote* - untuk memulai vote`
-            isVote = vote[m.chat][1].concat(vote[m.chat][2])
-            wasVote = isVote.includes(m.sender)
-            if (wasVote) throw 'Kamu Sudah Vote'
-            vote[m.chat][1].push(m.sender)
-            menvote = vote[m.chat][1].concat(vote[m.chat][2])
-            teks_vote = `*「 VOTE 」*
-
-*Alasan:* ${vote[m.chat][0]}
-
-┌〔 UPVOTE 〕
-│ 
-├ Total: ${vote[m.chat][1].length}
-${vote[m.chat][1].map((v, i) => `├ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
-│ 
-└────
-
-┌〔 DEVOTE 〕
-│ 
-├ Total: ${vote[m.chat][2].length}
-${vote[m.chat][2].map((v, i) => `├ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
-│ 
-└────
-
-*${prefix}hapusvote* - untuk menghapus vote`
-            let buttonsUpvote = [
-              {buttonId: `${prefix}upvote`, buttonText: {displayText: '𝚄𝙿𝚅𝙾𝚃𝙴'}, type: 1},
-              {buttonId: `${prefix}devote`, buttonText: {displayText: '𝙳𝙴𝚅𝙾𝚃𝙴'}, type: 1}
-            ]
-
-            let buttonMessageUpvote = {
-                text: teks_vote,
-                footer: hanbotz.user.name,
-                buttons: buttonsUpvote,
-                headerType: 1,
-                mentions: menvote
-             }
-            hanbotz.sendMessage(m.chat, buttonMessageUpvote)
-	    }
-             break
-                case 'devote': {
-            if (!m.isGroup) throw mess.group
-            if (!(m.chat in vote)) throw `_*tidak ada voting digrup ini!*_\n\n*${prefix}vote* - untuk memulai vote`
-            isVote = vote[m.chat][1].concat(vote[m.chat][2])
-            wasVote = isVote.includes(m.sender)
-            if (wasVote) throw 'Kamu Sudah Vote'
-            vote[m.chat][2].push(m.sender)
-            menvote = vote[m.chat][1].concat(vote[m.chat][2])
-            teks_vote = `*「 VOTE 」*
-
-*Alasan:* ${vote[m.chat][0]}
-
-┌〔 UPVOTE 〕
-│ 
-├ Total: ${vote[m.chat][1].length}
-${vote[m.chat][1].map((v, i) => `├ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
-│ 
-└────
-
-┌〔 DEVOTE 〕
-│ 
-├ Total: ${vote[m.chat][2].length}
-${vote[m.chat][2].map((v, i) => `├ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
-│ 
-└────
-
-*${prefix}hapusvote* - untuk menghapus vote`
-            let buttonsDevote = [
-              {buttonId: `${prefix}upvote`, buttonText: {displayText: '𝚄𝙿𝚅𝙾𝚃𝙴'}, type: 1},
-              {buttonId: `${prefix}devote`, buttonText: {displayText: '𝙳𝙴𝚅𝙾𝚃𝙴'}, type: 1}
-            ]
-
-            let buttonMessageDevote = {
-                text: teks_vote,
-                footer: hanbotz.user.name,
-                buttons: buttonsDevote,
-                headerType: 1,
-                mentions: menvote
-            }
-            hanbotz.sendMessage(m.chat, buttonMessageDevote)
-	}
-            break
-                 
-case 'cekvote':
-if (!m.isGroup) throw mess.group
-if (!isAdmins && !isCreator) throw mess.admin
-if (!(m.chat in vote)) throw `_*tidak ada voting digrup ini!*_\n\n*${prefix}vote* - untuk memulai vote`
-teks_vote = `*「 VOTE 」*
-
-*Alasan:* ${vote[m.chat][0]}
-
-┌〔 UPVOTE 〕
-│ 
-├ Total: ${upvote.length}
-${vote[m.chat][1].map((v, i) => `├ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
-│ 
-└────
-
-┌〔 DEVOTE 〕
-│ 
-├ Total: ${devote.length}
-${vote[m.chat][2].map((v, i) => `├ ${i + 1}. @${v.split`@`[0]}`).join('\n')}
-│ 
-└────
-
-*${prefix}hapusvote* - untuk menghapus vote
-
-
-©${hanbotz.user.id}
-`
-hanbotz.sendTextWithMentions(m.chat, teks_vote, m)
-break
-		case 'deletevote': case'delvote': case 'hapusvote': {
-            if (!m.isGroup) throw mess.group
-            if (!isAdmins && !isCreator) throw mess.admin
-            if (!(m.chat in vote)) throw `_*tidak ada voting digrup ini!*_\n\n*${prefix}vote* - untuk memulai vote`
-            delete vote[m.chat]
-            m.reply('Berhasil Menghapus Sesi Vote Di Grup Ini')
-	    }
-            break
-               case 'group': case 'grup': {
+            
+               case 'group': {
                 if (!m.isGroup) throw mess.group
                 if (!isBotAdmins) throw mess.botAdmin
                 if (!isAdmins && !isCreator) throw mess.admin
@@ -1406,37 +1213,7 @@ if (!text) return m.reply(`*Example*: mute on/off`)
                 await fs.unlinkSync(media)
             }
             break
-            case 'toaud': case 'toaudio': {
-            if (!/video/.test(mime) && !/audio/.test(mime)) throw `Kirim/Reply Video/Audio Yang Ingin Dijadikan Audio Dengan Caption ${prefix + command}`
-            if (!quoted) throw `Kirim/Reply Video/Audio Yang Ingin Dijadikan Audio Dengan Caption ${prefix + command}`
-            m.reply(`wait...`)
-            let media = await quoted.download()
-            let { toAudio } = require('./lib/converter')
-            let audio = await toAudio(media, 'mp4')
-            hanbotz.sendMessage(m.chat, {audio: audio, mimetype: 'audio/mpeg'}, { quoted : m })
-            }
-            break
-            case 'tomp3': {
-            if (/document/.test(mime)) throw `Kirim/Reply Video/Audio Yang Ingin Dijadikan MP3 Dengan Caption ${prefix + command}`
-            if (!/video/.test(mime) && !/audio/.test(mime)) throw `Kirim/Reply Video/Audio Yang Ingin Dijadikan MP3 Dengan Caption ${prefix + command}`
-            if (!quoted) throw `Kirim/Reply Video/Audio Yang Ingin Dijadikan MP3 Dengan Caption ${prefix + command}`
-            m.reply(`wait...`)
-            let media = await quoted.download()
-            let { toAudio } = require('./lib/converter')
-            let audio = await toAudio(media, 'mp4')
-            hanbotz.sendMessage(m.chat, {document: audio, mimetype: 'audio/mpeg', fileName: `Convert By ${hanbotz.user.name}.mp3`}, { quoted : m })
-            }
-            break
-            case 'tovn': case 'toptt': {
-            if (!/video/.test(mime) && !/audio/.test(mime)) throw `Reply Video/Audio Yang Ingin Dijadikan VN Dengan Caption ${prefix + command}`
-            if (!quoted) throw `Reply Video/Audio Yang Ingin Dijadikan VN Dengan Caption ${prefix + command}`
-            m.reply(`wait...`)
-            let media = await quoted.download()
-            let { toPTT } = require('./lib/converter')
-            let audio = await toPTT(media, 'mp4')
-            hanbotz.sendMessage(m.chat, {audio: audio, mimetype:'audio/mpeg', ptt:true }, {quoted:m})
-            }
-            break
+            
             case 'togif': {
                 if (!quoted) throw 'Reply Stiker'
                 if (!/webp/.test(mime)) throw `balas stiker dengan caption *${prefix + command}*`
@@ -1646,16 +1423,7 @@ hanbotz.sendMessage(m.chat, { image: { url: images }, caption: `*Query* : ${text
 		let { quotesAnime } = require('./lib/scraper')
                 let anu = await quotesAnime()
                 result = anu[Math.floor(Math.random() * anu.length)]
-                let buttons = [
-                    {buttonId: `quotesanime`, buttonText: {displayText: 'Next'}, type: 1}
-                ]
-                let buttonMessage = {
-                    text: `~_${result.quotes}_\n\nBy '${result.karakter}', ${result.anime}\n\n- ${result.up_at}`,
-                    footer: 'HanBotz',
-                    buttons: buttons,
-                    headerType: 2
-                }
-                hanbotz.sendMessage(m.chat, buttonMessage, { quoted: m })
+                m.reply(`~_${result.quotes}_\n\nBy '${result.karakter}', ${result.anime}\n\n- ${result.up_at}`)
                 db.data.users[m.sender].limit -= 1 
             }
             break
@@ -1939,63 +1707,11 @@ hanbotz.sendMessage(m.chat, { image: { url: images }, caption: `*Query* : ${text
                 hanbotz.sendText(m.chat, `• *Hasil :* ${anu.message}`, m)
             }
             break
-	    case 'stalker': case 'stalk': {
-		if (!isPremium && global.db.users[m.sender].limit < 1) return m.reply('Limit Harian Anda Telah Habis')
-                if (!text) return m.reply(`Example : ${prefix +command} type id\n\nList Type :\n1. ff (Free Fire)\n2. ml (Mobile Legends)\n3. aov (Arena Of Valor)\n4. cod (Call Of Duty)\n5. pb (point Blank)\n6. ig (Instagram)\n7. npm (https://npmjs.com)`)
-                let [type, id, zone] = args
-                if (type.toLowerCase() == 'ff') {
-                    if (!id) throw `No Query id, Example ${prefix + command} ff 552992060`
-                    let anu = await fetchJson(api('zenz', '/api/nickff', { apikey: global.APIKeys[global.APIs['zenz']], query: id }))
-                    if (anu.status == false) return m.reply(anu.result.message)
-                    m.reply(`ID : ${anu.result.gameId}\nUsername : ${anu.result.userName}`)
-		    db.data.users[m.sender].limit -= 1
-                } else if (type.toLowerCase() == 'ml') {
-                    if (!id) throw `No Query id, Example : ${prefix + command} ml 214885010 2253`
-                    if (!zone) throw `No Query id, Example : ${prefix + command} ml 214885010 2253`
-                    let anu = await fetchJson(api('zenz', '/api/nickml', { apikey: global.APIKeys[global.APIs['zenz']], query: id, query2: zone }))
-                    if (anu.status == false) return m.reply(anu.result.message)
-                    m.reply(`ID : ${anu.result.gameId}\nZone : ${anu.result.zoneId}\nUsername : ${anu.result.userName}`)
-		    db.data.users[m.sender].limit -= 1
-                } else if (type.toLowerCase() == 'aov') {
-                    if (!id) throw `No Query id, Example ${prefix + command} aov 293306941441181`
-                    let anu = await fetchJson(api('zenz', '/api/nickaov', { apikey: global.APIKeys[global.APIs['zenz']], query: id }))
-                    if (anu.status == false) return m.reply(anu.result.message)
-                    m.reply(`ID : ${anu.result.gameId}\nUsername : ${anu.result.userName}`)
-		    db.data.users[m.sender].limit -= 1
-                } else if (type.toLowerCase() == 'cod') {
-                    if (!id) throw `No Query id, Example ${prefix + command} cod 6290150021186841472`
-                    let anu = await fetchJson(api('zenz', '/api/nickcod', { apikey: global.APIKeys[global.APIs['zenz']], query: id }))
-                    if (anu.status == false) return m.reply(anu.result.message)
-                    m.reply(`ID : ${anu.result.gameId}\nUsername : ${anu.result.userName}`)
-		    db.data.users[m.sender].limit -= 1
-                } else if (type.toLowerCase() == 'pb') {
-                    if (!id) throw `No Query id, Example ${prefix + command} pb riio46`
-                    let anu = await fetchJson(api('zenz', '/api/nickpb', { apikey: global.APIKeys[global.APIs['zenz']], query: id }))
-                    if (anu.status == false) return m.reply(anu.result.message)
-                    m.reply(`ID : ${anu.result.gameId}\nUsername : ${anu.result.userName}`)
-		    db.data.users[m.sender].limit -= 1
-                } else if (type.toLowerCase() == 'ig') {
-                    if (!id) throw `No Query username, Example : ${prefix + command} ig cak_haho`
-                    let { result: anu } = await fetchJson(api('zenz', '/api/stalker/ig', { username: id }, 'apikey'))
-                    if (anu.status == false) return m.reply(anu.result.message)
-                    hanbotz.sendMedia(m.chat, anu.caption.profile_hd, '', `• Full Name : ${anu.caption.full_name}\n• User Name : ${anu.caption.user_name}\n• ID ${anu.caption.user_id}\n• Followers : ${anu.caption.following}\n• Following : ${anu.caption.followers}\n• Bussines : ${anu.caption.bussines}\n• Profesional : ${anu.caption.profesional}\n• Verified : ${anu.caption.verified}\n• Private : ${anu.caption.private}\n• Bio : ${anu.caption.biography}\n• Bio Url : ${anu.caption.bio_url}`, m)
-		    db.data.users[m.sender].limit -= 1
-                } else if (type.toLowerCase() == 'npm') {
-                    if (!id) throw `No Query username, Example : ${prefix + command} npm scrape-primbon`
-                    let { result: anu } = await fetchJson(api('zenz', '/api/stalker/npm', { query: id }, 'apikey'))
-                    if (anu.status == false) return m.reply(anu.result.message)
-                    m.reply(`• Name : ${anu.name}\n• Version : ${Object.keys(anu.versions)}\n• Created : ${tanggal(anu.time.created)}\n• Modified : ${tanggal(anu.time.modified)}\n• Maintainers :\n ${anu.maintainers.map(v => `- ${v.name} : ${v.email}`).join('\n')}\n\n• Description : ${anu.description}\n• Homepage : ${anu.homepage}\n• Keywords : ${anu.keywords}\n• Author : ${anu.author.name}\n• License : ${anu.license}\n• Readme : ${anu.readme}`)
-		    db.data.users[m.sender].limit -= 1
-                } else {
-                    m.reply(`Example : ${prefix +command} type id\n\nList Type :\n1. ff (Free Fire)\n2. ml (Mobile Legends)\n3. aov (Arena Of Valor)\n4. cod (Call Of Duty)\n5. pb (point Blank)\n6. ig (Instagram)\n7. npm (https://npmjs.com)`)
-                }
-            }
-            break
 case 'tiktoknowm': {
                 if (!text) throw 'Masukkan Query Link!'
                 m.reply(mess.wait)
                 let anu = await fetchJson(`https://api.akuari.my.id/downloader/tiktok?link=${text}`)
-                hanbotz.sendMessage(m.chat, { video: { url: anu}, caption: `${text}`}, { quoted: m })
+                hanbotz.sendMessage(m.chat, { video: { url: anu } }, { quoted: m })
             }
             break
             case 'tiktokwm': case 'tiktokwatermark': {
@@ -2271,119 +1987,6 @@ Lihat list Pesan Dengan ${prefix}listmsg`)
 		m.reply(`Berhasil menghapus '${text}' dari list pesan`)
             }
 	    break
-	    case 'anonygfdfvmous': {
-                if (m.isGroup) return m.reply('Fitur Tidak Dapat Digunakan Untuk Group!')
-				this.anonymous = this.anonymous ? this.anonymous : {}
-				let buttons = [
-                    { buttonId: 'start', buttonText: { displayText: 'Start' }, type: 1 }
-                ]
-                hanbotz.sendButtonText(m.chat, buttons, `\`\`\`Hi ${await hanbotz.getName(m.sender)} Welcome To Anonymous Chat\n\nKlik Button Dibawah Ini Untuk Mencari Partner\`\`\``, hanbotz.user.name, m)
-            }
-			break
-            case 'kelvfdfguar': case 'leavgfddde': {
-                if (m.isGroup) return m.reply('Fitur Tidak Dapat Digunakan Untuk Group!')
-                this.anonymous = this.anonymous ? this.anonymous : {}
-                let room = Object.values(this.anonymous).find(room => room.check(m.sender))
-                if (!room) {
-                    let buttons = [
-                        { buttonId: 'start', buttonText: { displayText: 'Start' }, type: 1 }
-                    ]
-                    await hanbotz.sendButtonText(m.chat, buttons, `\`\`\`Kamu Sedang Tidak Berada Di Sesi Anonymous, Tekan Button Untuk Mencari Partner \`\`\``)
-                    throw false
-                }
-                m.reply('Ok')
-                let other = room.other(m.sender)
-                if (other) await hanbotz.sendText(other, `\`\`\`Partner Telah Meninggalkan Sesi Anonymous\`\`\``, m)
-                delete this.anonymous[room.id]
-                if (command === 'leave') 
-                break
-            }
-            case 'bhffvmulai': case 'stavtghgrt': {
-                if (m.isGroup) return m.reply('Fitur Tidak Dapat Digunakan Untuk Group!')
-                this.anonymous = this.anonymous ? this.anonymous : {}
-                if (Object.values(this.anonymous).find(room => room.check(m.sender))) {
-                    let buttons = [
-                        { buttonId: 'keluar', buttonText: { displayText: 'Stop' }, type: 1 }
-                    ]
-                    await hanbotz.sendButtonText(m.chat, buttons, `\`\`\`Kamu Masih Berada Di dalam Sesi Anonymous, Tekan Button Dibawah Ini Untuk Menghentikan Sesi Anonymous Anda\`\`\``, hanbotz.user.name, m)
-                    throw false
-                }
-                let room = Object.values(this.anonymous).find(room => room.state === 'WAITING' && !room.check(m.sender))
-                if (room) {
-                    let buttons = [
-                        { buttonId: 'next', buttonText: { displayText: 'Skip' }, type: 1 },
-                        { buttonId: 'keluar', buttonText: { displayText: 'Stop' }, type: 1 }
-                    ]
-                    await hanbotz.sendButtonText(room.a, buttons, `\`\`\`Berhasil Menemukan Partner, sekarang kamu dapat mengirim pesan\`\`\``, hanbotz.user.name, m)
-                    room.b = m.sender
-                    room.state = 'CHATTING'
-                    await hanbotz.sendButtonText(room.b, buttons, `\`\`\`Berhasil Menemukan Partner, sekarang kamu dapat mengirim pesan\`\`\``, hanbotz.user.name, m)
-                } else {
-                    let id = + new Date
-                    this.anonymous[id] = {
-                        id,
-                        a: m.sender,
-                        b: '',
-                        state: 'WAITING',
-                        check: function (who = '') {
-                            return [this.a, this.b].includes(who)
-                        },
-                        other: function (who = '') {
-                            return who === this.a ? this.b : who === this.b ? this.a : ''
-                        },
-                    }
-                    let buttons = [
-                        { buttonId: 'keluar', buttonText: { displayText: 'Stop' }, type: 1 }
-                    ]
-                    await hanbotz.sendButtonText(m.chat, buttons, `\`\`\`Mohon Tunggu Sedang Mencari Partner\`\`\``, hanbotz.user.name, m)
-                }
-                break
-            }
-            case 'nhffext': case 'lanfddfjut': {
-                if (m.isGroup) return m.reply('Fitur Tidak Dapat Digunakan Untuk Group!')
-                this.anonymous = this.anonymous ? this.anonymous : {}
-                let romeo = Object.values(this.anonymous).find(room => room.check(m.sender))
-                if (!romeo) {
-                    let buttons = [
-                        { buttonId: 'start', buttonText: { displayText: 'Start' }, type: 1 }
-                    ]
-                    await hanbotz.sendButtonText(m.chat, buttons, `\`\`\`Kamu Sedang Tidak Berada Di Sesi Anonymous, Tekan Button Untuk Mencari Partner\`\`\``)
-                    throw false
-                }
-                let other = romeo.other(m.sender)
-                if (other) await hanbotz.sendText(other, `\`\`\`Partner Telah Meninggalkan Sesi Anonymous\`\`\``, m)
-                delete this.anonymous[romeo.id]
-                let room = Object.values(this.anonymous).find(room => room.state === 'WAITING' && !room.check(m.sender))
-                if (room) {
-                    let buttons = [
-                        { buttonId: 'next', buttonText: { displayText: 'Skip' }, type: 1 },
-                        { buttonId: 'keluar', buttonText: { displayText: 'Stop' }, type: 1 }
-                    ]
-                    await hanbotz.sendButtonText(room.a, buttons, `\`\`\`Berhasil Menemukan Partner, sekarang kamu dapat mengirim pesan\`\`\``, hanbotz.user.name, m)
-                    room.b = m.sender
-                    room.state = 'CHATTING'
-                    await hanbotz.sendButtonText(room.b, buttons, `\`\`\`Berhasil Menemukan Partner, sekarang kamu dapat mengirim pesan\`\`\``, hanbotz.user.name, m)
-                } else {
-                    let id = + new Date
-                    this.anonymous[id] = {
-                        id,
-                        a: m.sender,
-                        b: '',
-                        state: 'WAITING',
-                        check: function (who = '') {
-                            return [this.a, this.b].includes(who)
-                        },
-                        other: function (who = '') {
-                            return who === this.a ? this.b : who === this.b ? this.a : ''
-                        },
-                    }
-                    let buttons = [
-                        { buttonId: 'keluar', buttonText: { displayText: 'Stop' }, type: 1 }
-                    ]
-                    await hanbotz.sendButtonText(m.chat, buttons, `\`\`\`Mohon Tunggu Sedang Mencari Partner\`\`\``, hanbotz.user.name, m)
-                }
-                break
-            }
             case 'public': {
                 if (!isCreator) throw mess.owner
                 hanbotz.public = true
@@ -2435,222 +2038,6 @@ Lihat list Pesan Dengan ${prefix}listmsg`)
                 hanbotz.sendContact(m.chat, global.owner, m)
             }
             break
-            case 'allmenuu': {
-            	let readmore = `͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏͏`
-                anu = `
-*ᴜꜱᴇʀ ɪɴꜰᴏ*
-Name : *${pushname}*
-Number : *wa.me/${m.sender.split("@")[0]}*
-
-*ʙᴏᴛ ɪɴꜰᴏ*
-Name : *HanBotz*
-Prefix : 〔 *${prefix}* 〕
-Runtime : *${runtime(process.uptime())}*
-
-Time Server : *${jmn}* WIB
-Calendar : *${date}*
-
-${readmore}__________________________
-
-❏ 𝗚𝗥𝗢𝗨𝗣
-• ${prefix}linkgroup
-• ${prefix}add [62]
-• ${prefix}kick @user
-• ${prefix}promote @user
-• ${prefix}demote @user
-• ${prefix}hidetag [text]
-• ${prefix}tagall [text]
-• ${prefix}antilink [on/off]
-• ${prefix}mute [on/off]
-• ${prefix}temporary [1/0]
-• ${prefix}setppgc [image]
-• ${prefix}setname [text]
-• ${prefix}setdesc [text]
-• ${prefix}group [open/close]
-
-❏ 𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗𝗘𝗥
-• ${prefix}tiktoknowm [url]
-• ${prefix}tiktokwm [url]
-• ${prefix}tiktokmp3 [url]
-• ${prefix}twitter [url]
-• ${prefix}twittermp3 [url]
-
-❏ 𝗬𝗢𝗨𝗧𝗨𝗕𝗘
-• ${prefix}play [query]
-• ${prefix}ytmp3 [url]
-• ${prefix}ytmp4 [url]
-• ${prefix}ytsearch [query]
-• ${prefix}getmusic [query]
-• ${prefix}getvideo [query]
-
-❏ 𝗦𝗘𝗔𝗥𝗖𝗛
-• ${prefix}google [query]
-• ${prefix}gimage [query]
-• ${prefix}pinterest [query]
-• ${prefix}wallpaper [query]
-• ${prefix}wikimedia [query]
-
-❏ 𝗧𝗘𝗫𝗧
-• ${prefix}halah
-• ${prefix}hilih
-• ${prefix}huluh
-• ${prefix}heleh
-• ${prefix}holoh
-• ${prefix}styletext
-• ${prefix}translate
-
-❏ 𝗚𝗔𝗠𝗘
-• ${prefix}family100
-• ${prefix}tebak [option]
-• ${prefix}math [mode]
-• ${prefix}suitpvp [@tag]
-• ${prefix}tictactoe [@tag]
-
-❏ 𝗣𝗥𝗜𝗠𝗕𝗢𝗡
-• ${prefix}nomorhoki
-• ${prefix}artimimpi
-• ${prefix}artinama
-• ${prefix}ramaljodoh
-• ${prefix}ramaljodohbali
-• ${prefix}suamiistri
-• ${prefix}weton
-• ${prefix}karakter
-• ${prefix}keberuntungan
-• ${prefix}memancing
-• ${prefix}masasubur
-• ${prefix}zodiak
-• ${prefix}shio
-• ${prefix}ramalcinta
-• ${prefix}cocoknama
-• ${prefix}pasangan
-• ${prefix}jadiannikah
-• ${prefix}sifatusaha
-• ${prefix}rezeki
-• ${prefix}pekerjaan
-• ${prefix}nasib
-• ${prefix}penyakit
-• ${prefix}tarot
-• ${prefix}fengshui
-• ${prefix}haribaik
-• ${prefix}harisangar
-• ${prefix}harisial
-• ${prefix}nagahari
-• ${prefix}arahrezeki
-• ${prefix}peruntungan
-
-❏ 𝗖𝗢𝗡𝗩𝗘𝗥𝗧
-• ${prefix}ssweb
-• ${prefix}tourl
-• ${prefix}tovn
-• ${prefix}tomp3
-• ${prefix}toaudio
-• ${prefix}shortlink
-
-❏ 𝗠𝗔𝗞𝗘𝗥
-• ${prefix}led
-• ${prefix}neon-love
-• ${prefix}3dgolden
-• ${prefix}christmas
-• ${prefix}3drainbow
-• ${prefix}magma
-• ${prefix}space
-• ${prefix}transformer
-• ${prefix}thunder
-• ${prefix}angel
-• ${prefix}queen
-• ${prefix}bear
-• ${prefix}graffiti
-*Example:* .led HanBotz
-
-• ${prefix}avengers
-• ${prefix}mountain
-• ${prefix}captainamerica
-*Example:* .avengers Han&Botz
-
-❏ 𝗦𝗧𝗜𝗖𝗞𝗘𝗥
-• ${prefix}ttp
-• ${prefix}attp
-• ${prefix}stiker
-• ${prefix}togif
-• ${prefix}tovideo
-• ${prefix}toimage
-• ${prefix}emojimix
-
-❏ 𝗜𝗦𝗟𝗔𝗠𝗜𝗖
-• ${prefix}iqra
-• ${prefix}hadist
-• ${prefix}alquran
-• ${prefix}juzamma
-• ${prefix}tafsirsurah
-
-❏ 𝗩𝗢𝗜𝗖𝗘 𝗖𝗛𝗔𝗡𝗚𝗘𝗥
-• ${prefix}fat
-• ${prefix}fast
-• ${prefix}slow
-• ${prefix}robot
-• ${prefix}tupai
-• ${prefix}deep
-• ${prefix}bass
-• ${prefix}blown
-• ${prefix}reverse
-• ${prefix}earrape
-
-❏ 𝗤𝗨𝗢𝗧𝗘
-• ${prefix}quotebijak
-• ${prefix}quotefakta
-• ${prefix}quotebacot
-• ${prefix}quoteilham
-• ${prefix}quotefakboy
-• ${prefix}quotesindiran
-
-❏ 𝗠𝗘𝗠𝗘
-• ${prefix}meme
-• ${prefix}darkjoke
-• ${prefix}smeme _text_
-• ${prefix}smeme2 _text1&text2_
-
-❏ 𝗗𝗔𝗧𝗔𝗕𝗔𝗦𝗘
-• ${prefix}addmsg
-• ${prefix}listmsg
-• ${prefix}getmsg
-• ${prefix}delmsg
-• ${prefix}setcmd
-• ${prefix}listcmd
-• ${prefix}delcmd
-• ${prefix}lockcmd
-
-❏ 𝗢𝗣𝗧𝗜𝗢𝗡
-• ${prefix}join
-• ${prefix}chat
-• ${prefix}react
-• ${prefix}bcall
-• ${prefix}bcgc
-• ${prefix}leave
-• ${prefix}setexif
-• ${prefix}block
-• ${prefix}unblock
-• ${prefix}setppbot
-__________________________
-`
-                let btn = [{
-                                urlButton: {
-                                    displayText: 'Join',
-                                    url: 'http://link.hanbotz.xyz/grup'
-                                }
-                            }, {
-                                urlButton: {
-                                    displayText: 'Report Bug / Error',
-                                    url: 'http://link.hanbotz.xyz/report'
-                                }
-                            }, {
-                                quickReplyButton: {
-                                    displayText: 'Donasi',
-                                    id: 'donasi'
-                                }  
-                            }]
-                        hanbotz.send5ButImg(m.chat, anu, hanbotz.user.name, global.thumb, btn)
-                     }
-	        break
 case '/': case 'botz': case 'hanbotz': {
 	if (!text) throw `HanBotz Disini (~￣³￣)~`
 	let anu = await fetchJson(`https://api.akuari.my.id/simi/simi2?query=${text}`)
@@ -2858,16 +2245,6 @@ const sections = [
                             "title": "DONATE",
                             "rowId": ".donasi",
                             "description": "support HanBotz"
-                          },
-                          {
-                            "title": "REPORT BUG/ERROR",
-                            "rowId": ".reporttt",
-                            "description": "your report is very helpful"
-                          },
-                          {
-                            "title": "GROUP HANBOTZ OFFICIAL",
-                            "rowId": ".gchb",
-                            "description": "use HanBotz for free"
                           }]
                            },
                            ]
@@ -2895,12 +2272,6 @@ const listMessage = {
 
 hanbotz.sendMessage(m.chat, listMessage, {quoted: m})
 } 
-break
-case 'reporttt':
-m.reply(`*｢  REPORT BUG/ERROR  ｣*\n\nlink.hanbotz.xyz/report\n`)
-break
-case 'gchb':
-m.reply(`*｢  GROUP HANBOTZ OFFICIAL  ｣*\n\nlink.hanbotz.xyz/grup\n`)
 break
 case 'donasi': case 'donate': 
 sawer = `*｢  DONATE  ｣*\n\nlink.hanbotz.xyz/donasi\n`
@@ -3108,6 +2479,7 @@ quot = `
 • ${prefix}quoteilham
 • ${prefix}quotefakboy
 • ${prefix}quotesindiran
+• ${prefix}quotesanime
 `
 m.reply(quot)
 break
@@ -3290,20 +2662,6 @@ if (!m.isGroup) throw mess.group
 let metadata = await hanbotz.groupMetadata(m.chat)
 m.reply(`${metadata.id}`)
 break
-case 'promote2': {
-                if (!isBotAdmins) throw mess.botAdmin
-                if (!isCreator) throw mess.owner
-		let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
-		await hanbotz.groupParticipantsUpdate(args[1], [users], 'promote').then((res) => m.reply(mess.success)).catch((err) => m.reply(jsonformat(err)))
-	}
-	break
-case 'demote2': {
-                if (!isBotAdmins) throw mess.botAdmin
-                if (!isCreator) throw mess.owner
-		let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
-		await hanbotz.groupParticipantsUpdate(args[1], [users], 'demote').then((res) => m.reply(mess.success)).catch((err) => m.reply(jsonformat(err)))
-	}
-	break
 case 'limit': case 'ceklimit':
 let userrr = global.db.data.users[m.sender]
 m.reply(`*｢  LIMIT  ｣*\n\n*Harian:* ${userrr.limit}\n*Game:* ${userrr.game}\n\n_Note:_ Limit Akan Direset Pada Pukul 12 Siang dan 11 Malam\n`)
